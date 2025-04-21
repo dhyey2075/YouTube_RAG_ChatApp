@@ -18,7 +18,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = QdrantClient(
-    url="http://localhost:6333"
+    url="https://56f5dc6a-d2b3-40ad-ba5b-10051bb2defc.eu-central-1-0.aws.cloud.qdrant.io:6333", 
+    api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.uL8GZ7x5RppxoP5fPtiEd16OL5vqjt4d-Y7EdE5cCn8",
 )
 
 embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
@@ -30,12 +31,13 @@ vector_store = QdrantVectorStore(
     embedding=embeddings,
 )
 
+
 st.title("YouTube Chat App")
 
 st.subheader("Enter a YouTube video URL to get the chat messages.")
 
 
-video_url = st.text_input("")
+video_url = st.text_input("Label", label_visibility="collapsed", placeholder="Enter YouTube video URL")
 
 if video_url:
     st.write(f"You entered: {video_url}")
