@@ -10,6 +10,7 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from qdrant_client.http.models import Distance, VectorParams
 from langchain.docstore.document import Document
+from qdrant_client.http.models import Filter, FieldCondition, MatchValue
 
 
 import os
@@ -89,13 +90,23 @@ if prompt:
             ])
 
             # Format the prompt with the current context and user query
-            formatted_prompt = prompt.format(context=context, user_input=query)
+            formatted_messages = prompt.format_messages(context=context, user_input=query)
+
+            formatted_prompt = "\n".join([message.content for message in formatted_messages])
 
             # Invoke the chat model with the formatted prompt
             response = chat.invoke(formatted_prompt)
 
-            st.write(f"Response: {response}")
+            st.markdown(f"Response: {response.to_json()['kwargs']['content']}")
 
     except Exception as e:
         st.error(f"Error: {e}")
+
+if st.button("Clear"):
+    filter_all = Filter(must=[])
+
+    client.delete(
+        collection_name="youtube-transcripts",
+        points_selector=filter_all
+    )
 
