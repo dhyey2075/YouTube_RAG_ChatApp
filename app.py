@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = QdrantClient(
-    url="https://56f5dc6a-d2b3-40ad-ba5b-10051bb2defc.eu-central-1-0.aws.cloud.qdrant.io:6333", 
+    url="https://56f5dc6a-d2b3-40ad-ba5b-10051bb2defc.eu-central-1-0.aws.cloud.qdrant.io", 
     api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.uL8GZ7x5RppxoP5fPtiEd16OL5vqjt4d-Y7EdE5cCn8",
 )
 
