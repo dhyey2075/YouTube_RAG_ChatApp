@@ -5,3 +5,4 @@ langchain-google-genai
 langchain-qdrant
 langchain-groq
 qdrant-client
+youtube-transcript-api

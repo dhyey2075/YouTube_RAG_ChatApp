@@ -19,11 +19,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = QdrantClient(
-    url="https://56f5dc6a-d2b3-40ad-ba5b-10051bb2defc.eu-central-1-0.aws.cloud.qdrant.io", 
-    api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.uL8GZ7x5RppxoP5fPtiEd16OL5vqjt4d-Y7EdE5cCn8",
+    url=st.secrets["QDRANT_URL"], 
+    api_key=st.secrets["QDRANT_API_KEY"]
 )
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=st.secrets["GOOGLE_API_KEY"])
 
 
 vector_store = QdrantVectorStore(
@@ -77,7 +77,7 @@ if prompt:
             if query.lower() == "exit":
                 break
 
-            chat = ChatGroq(temperature=0.5, groq_api_key = os.getenv("GROQ_API_KEY"), model_name="gemma2-9b-it")
+            chat = ChatGroq(temperature=0.5, groq_api_key = st.secrets["GROQ_API_KEY"], model_name="gemma2-9b-it")
 
             context = "\n".join([doc.page_content for doc in results])
             
